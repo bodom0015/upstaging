@@ -32,3 +32,10 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
+
+db/*
+
+**/*.key
+**/*.crt
+**/*.cert
+**/*.pem

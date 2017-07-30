@@ -1,0 +1,49 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ item.name }}</ion-title>
+    
+    <ion-buttons end>
+      <button ion-button icon-only (click)="deleteItem()">
+        <ion-icon name="md-trash"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="toggleFavorite()">
+        <ion-icon *ngIf="!item.favorite" name="md-star-outline"></ion-icon>
+        <ion-icon *ngIf="item.favorite" name="md-star"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="editItem()">
+        <ion-icon name="md-open"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <!--<div class="item-profile" *ngIf="item.albumArt" text-center #profilePic [style.background-image]="'url(' + item.albumArt + ')'">
+  </div>-->
+
+  <div class="item-detail" padding>
+    <!-- Item metadata about the song itself -->
+    <h2>{{item.title}} <small margin-left class="item-artist">by {{item.artist}}</small></h2>
+    <ion-note item-end *ngIf="item.album">{{item.album}}</ion-note>
+    
+    <!-- Info about how to play the song: tuning, capo, chords, etc -->
+    <div class="item-chords" margin>
+      <h5>{{ 'ITEM_CHORDS_LABEL' | translate }}</h5>
+      <div><ion-note *ngIf="item.capo > 0">Capo: {{ item.capo }}</ion-note></div>
+      <div><ion-note *ngIf="item.tuning && item.tuning !== 'Standard' && item.tuning !== 'E B G D A E'">Tuning: {{ item.tuning }}</ion-note></div>
+      <ion-item class="chord-info" *ngFor="let chord of item.chords" item-end margin-horizontal>
+        <h2 class="chord-set-name">{{ chord.setName }}</h2>
+        <p class="chord-set">{{ chord.chordSet }}</p>
+      </ion-item>
+      <!-- <button margin (click)="editItem()">{{ 'ADD_CHORDS_TITLE' | translate }}</button> -->
+    </div>
+    
+    <div class="item-lyrics" *ngIf="item.lyrics" margin text-wrap>
+      <h5>{{ 'ITEM_LYRICS_LABEL' | translate }}</h5>
+      <pre>{{ item.lyrics }}</pre>
+    </div>
+  </div>
+</ion-content>

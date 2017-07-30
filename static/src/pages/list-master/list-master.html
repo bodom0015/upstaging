@@ -1,0 +1,46 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ 'LIST_MASTER_TITLE' | translate }}</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="share"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="addItem()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-scroll scrollY="true">
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of currentItems">
+        <button ion-item (click)="openItem(item)">
+          <button class="favorite-toggle" item-start margin-right ion-button small icon-only round outline (click)="toggleFavorite(item, $event)">
+            <ion-icon *ngIf="!item.favorite" name="star-outline"></ion-icon>
+            <ion-icon *ngIf="item.favorite" name="star"></ion-icon>
+          </button>
+          
+         <!-- <ion-avatar item-start margin-horizontal [hidden]='!item.albumArt'>
+            <img [src]="item.albumArt" />
+          </ion-avatar> -->
+          
+          <h2 class="song-title">{{item.title}}</h2>
+          <p class="song-artist">{{item.artist}}</p>
+          <ion-note class="song-rating" item-end><ion-icon name="star" *ngFor="let star of ratingArray(item)"></ion-icon></ion-note>
+        </button>
+  
+        <ion-item-options>
+          <button ion-button color="danger" (click)="deleteItem(item)">
+            {{ 'DELETE_BUTTON' | translate }}
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-scroll>
+</ion-content>

@@ -1,0 +1,77 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title *ngIf="!item['_id']">{{ 'ITEM_CREATE_TITLE' | translate }}</ion-title>
+    <ion-title *ngIf="item['_id']">{{ 'ITEM_EDIT_TITLE' | translate }}</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="cancel()">
+        <span color="primary" showWhen="ios">
+          {{ 'CANCEL_BUTTON' | translate }}
+        </span>
+        <ion-icon name="md-close" showWhen="core,android,windows"></ion-icon>
+      </button>
+      <button ion-button (click)="done()" [disabled]="!isReadyToSave" strong>
+        <span color="primary" showWhen="ios">
+          {{ 'DONE_BUTTON' | translate }}
+        </span>
+        <ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="done()">
+    <!--<input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+    <div class="profile-image-wrapper" (click)="getPicture()">
+      <div class="profile-image-placeholder" *ngIf="!this.form.controls.albumArt?.value">
+        <ion-icon name="add"></ion-icon>
+        <div>
+          {{ 'ITEM_CREATE_CHOOSE_IMAGE' | translate }}
+        </div>
+      </div>
+      <div class="profile-image" [style.backgroundImage]="getProfileImageStyle()" *ngIf="this.form.controls.albumArt?.value"></div>
+    </div>-->
+    <ion-list>
+      <ion-item>
+        <ion-input type="text" placeholder="{{ 'ITEM_TITLE_PLACEHOLDER' | translate }}" formControlName="title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="{{ 'ITEM_ARTIST_PLACEHOLDER' | translate }}" formControlName="artist"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="{{ 'ITEM_ALBUM_PLACEHOLDER' | translate }}" formControlName="album"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'ITEM_FAVORITE_LABEL' | translate }}</ion-label>
+        <ion-checkbox formControlName="favorite"></ion-checkbox>
+      </ion-item>
+      <ion-item text-wrap>
+        <ion-textarea rows="4" placeholder="{{ 'ITEM_LYRICS_LABEL' | translate }}" formControlName="lyrics"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'ITEM_TUNING_LABEL' | translate }}</ion-label>
+        <ion-input type="text" placeholder="{{ 'ITEM_TUNING_PLACEHOLDER' | translate }}" formControlName="tuning"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'ITEM_CAPO_LABEL' | translate }}</ion-label>
+        <ion-input type="number" formControlName="capo"></ion-input>
+      </ion-item>
+      <div formArrayName="chords">
+        <div *ngFor="let t of form.controls.chords.controls; let i=index">
+          <!--<label>Chords {{ i }}</label>-->
+          <ion-item [formGroupName]="i">
+            <app-chords [group]="form.controls.chords.controls[i]"></app-chords>
+            <button type="button" item-end (click)="removeChordLine(i, $event); false">
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </ion-item>
+        </div>
+        <button ion-button outline color="primary" full type="button" (click)="addChordLine($event); false" margin>{{ 'ADD_CHORD_SET_TITLE' | translate }}</button>
+        <!--<div *ngIf="!form.controls.chords.controls.length">You have not yet added any chords to this song</div>-->
+      </div>
+    </ion-list>
+  </form>
+</ion-content>

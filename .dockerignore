@@ -1,0 +1,10 @@
+static/hooks/
+static/node_modules/
+static/platforms/
+static/plugins/
+static/resources/
+static/src/
+
+.editorconfig
+.git/*
+.github/*
